@@ -62,8 +62,8 @@ func (m *Manager) Close() error {
 	for _, conn := range m.connections {
 		// Lock conn.mtx to ensure Dial() is complete
 		conn.mtx.Lock()
-		conn.mtx.Unlock()
 		closeErr := conn.clientConn.Close()
+		conn.mtx.Unlock()
 		if closeErr != nil {
 			err = multierror.Append(err, closeErr)
 		}
